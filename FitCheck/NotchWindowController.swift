@@ -8,8 +8,8 @@ final class NotchWindowController: NSObject {
     private var mouseMonitor: Any?
 
     // Notch dimensions — detected at runtime via safeAreaInsets
-    private let expandedWidth:  CGFloat = 300
-    private let expandedHeight: CGFloat = 240
+    private let expandedWidth:  CGFloat = 450
+    private let expandedHeight: CGFloat = 360
 
     func show() {
         guard let screen = NSScreen.main else { return }

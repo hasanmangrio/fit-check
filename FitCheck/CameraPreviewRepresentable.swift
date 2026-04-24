@@ -4,6 +4,7 @@ import AVFoundation
 
 struct CameraPreviewRepresentable: NSViewRepresentable {
     let camera: CameraManager
+    var isFlipped: Bool = false
 
     func makeNSView(context: Context) -> NSView {
         let view = NSView()
@@ -24,5 +25,9 @@ struct CameraPreviewRepresentable: NSViewRepresentable {
             previewLayer.frame = view.bounds
             CATransaction.commit()
         }
+        // Flip horizontally to show unmirrored (how others see you)
+        previewLayer.transform = isFlipped
+            ? CATransform3DMakeScale(-1, 1, 1)
+            : CATransform3DIdentity
     }
 }
