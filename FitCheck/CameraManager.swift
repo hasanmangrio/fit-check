@@ -27,12 +27,6 @@ final class CameraManager: NSObject, ObservableObject, @unchecked Sendable {
             guard let self, !self.isConfigured else { return }
             self.isConfigured = true
 
-            // Disable Center Stage globally — it digitally zooms in to track faces
-            if #available(macOS 12.3, *), AVCaptureDevice.isCenterStageEnabled {
-                AVCaptureDevice.centerStageControlMode = .app
-                AVCaptureDevice.isCenterStageEnabled = false
-            }
-
             self.captureSession.beginConfiguration()
             self.captureSession.sessionPreset = .hd1280x720
 
@@ -45,7 +39,7 @@ final class CameraManager: NSObject, ObservableObject, @unchecked Sendable {
 
             DispatchQueue.main.async {
                 self.previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
-                self.previewLayer?.videoGravity = .resizeAspect   // show full frame, no cropping
+                self.previewLayer?.videoGravity = .resizeAspectFill
                 completion()
             }
         }
